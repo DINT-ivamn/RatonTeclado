@@ -12,7 +12,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using System.Text;
 
 namespace RatonTeclado
 {
@@ -76,9 +75,20 @@ namespace RatonTeclado
             FocoTextoBox.Text = "";
         }
 
-        private void EliminarVocales(object sender, KeyEventArgs e)
+        private void EliminarVocales(object sender, TextChangedEventArgs e)
         {
-            
+            TextBox tb = (TextBox)sender;
+            char[] vocales = "aeiouAEIOU".ToCharArray();
+            StringBuilder textoSinVocales = new StringBuilder("");
+            for (int i = 0; i < tb.Text.Length; i++)
+            {
+                if (!vocales.Contains(tb.Text[i]))
+                {
+                    textoSinVocales.Append(tb.Text[i]);
+                }
+            }
+            tb.Text = textoSinVocales.ToString();
+            tb.CaretIndex = tb.Text.Length;
         }
     }
 }
